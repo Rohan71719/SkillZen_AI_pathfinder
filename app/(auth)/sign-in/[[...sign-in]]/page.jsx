@@ -1,8 +1,14 @@
 import { SignIn } from "@clerk/nextjs";
 
-
-const Page = () => {
-  return <SignIn/>;
+const SignInPage = () => {
+  return (
+    <SignIn
+      routing="path"               // ensures URL routing works with your app
+      path="/sign-in"              // the route this component is mounted on
+      signUpUrl="/sign-up"         // route to sign-up page
+      fallbackRedirectUrl="/dashboard"      
+    />
+  );
 };
 
-export default Page;
+export default SignInPage;
