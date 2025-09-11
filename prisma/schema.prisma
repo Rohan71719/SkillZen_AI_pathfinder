@@ -94,7 +94,7 @@ keyTrends         String[]  // Array of current industry trends
     recommendedSkills String[]  // Skills recommended for the industry
 
     lastUpdated       DateTime  @default(now())
-    nextUpdate        DateTime  // Scheduled update time
+    nextUpdate        DateTime   // Scheduled update time
 
     @@index([industry])
 }

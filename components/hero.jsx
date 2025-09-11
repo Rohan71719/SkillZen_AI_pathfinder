@@ -47,28 +47,26 @@ useEffect(() =>{
         </p>
     </div>
 
-    <div className="flex justify-center space-x-4">
-        <Link href="/dashboard">
-        <Button size="lg" className="px-8"  variant="outline">
-            Get Started
-            </Button>
-        </Link>
-        
-    </div>
+    <div className="flex flex-col items-center gap-2">
+  <div className="flex justify-center space-x-4">
+    <Link href="/dashboard">
+      <Button size="lg" className="px-8" variant="outline">
+        Get Started
+      </Button>
+    </Link>
+  </div>
 
-    <div className="hero-image-wrapper mt-5 md:mt-0">
-        <div ref={imageRef} className="hero-image">
-            <Image
-            src={"/banner.png"}
-            width={1280}
-            height={720}
-            alt="Banner SkillZen"
-            className="rounded-lg shadow-2x1 border mx-auto"
-            priority
-            />
-        </div>
-    </div>
-
+  <div ref={imageRef} className="hero-image">
+    <Image
+      src={"/banner.png"}
+      width={1280}
+      height={500}
+      alt="Banner SkillZen"
+      className="rounded-lg shadow-x1 border mx-auto"
+      priority
+    />
+  </div>
+</div>
 
 
 </div>

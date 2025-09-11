@@ -17,8 +17,6 @@ const DashboardView = ({ insights }) => {
     median: range.median / 1000,
   }));
 
-  
-
   const getDemandLevelColor = (level) => {
     switch (level.toLowerCase()) {
       case "high":
@@ -65,7 +63,7 @@ const DashboardView = ({ insights }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-semibold">
+            <CardTitle className="text-sm font-medium">
               Market Outlook
             </CardTitle>
             <OutlookIcon className={`h-4 w-4 ${outlookColor}`} />
@@ -80,7 +78,7 @@ const DashboardView = ({ insights }) => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-semibold">
+            <CardTitle className="text-sm font-medium">
               Industry Growth
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -95,7 +93,7 @@ const DashboardView = ({ insights }) => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-semibold">Demand Level</CardTitle>
+            <CardTitle className="text-sm font-medium">Demand Level</CardTitle>
             <BriefcaseIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -110,7 +108,7 @@ const DashboardView = ({ insights }) => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-lg font-semibold">Top Skills</CardTitle>
+            <CardTitle className="text-sm font-medium">Top Skills</CardTitle>
             <Brain className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>

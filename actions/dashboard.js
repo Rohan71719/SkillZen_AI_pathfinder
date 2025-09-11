@@ -9,6 +9,18 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
 });
+
+// Helper to get the upcoming Sunday at 00:00
+// Helper to get the upcoming Sunday at 00:00
+function getNextSunday(date) {
+  const nextSunday = setDay(date, 0, { weekStartsOn: 1 }); // 0 = Sunday
+  if (nextSunday <= date) {
+    // if today is already Sunday, move to next week
+    return setSeconds(setMinutes(setHours(addDays(nextSunday, 7), 0), 0), 0);
+  }
+  return setSeconds(setMinutes(setHours(nextSunday, 0), 0), 0);
+}
+
 export const generateAIInsights = async (industry) => {
   const prompt = `
           Analyze the current state of the ${industry} industry and provide insights in ONLY the following JSON format without any additional notes or explanations:
@@ -52,19 +64,33 @@ export async function getIndustryInsights() {
   if (!user) throw new Error("User not found");
 
   // If no insights exist, generate them
-  if (!user.industryInsight) {
-    const insights = await generateAIInsights(user.industry);
+ if (!user.industryInsight) {
+  const insights = await generateAIInsights(user.industry);
 
-    const industryInsight = await db.industryInsight.create({
-      data: {
-        industry: user.industry,
-        ...insights,
-        nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      },
-    });
+  const today = new Date();
 
-    return industryInsight;
+   if (user.industryInsight && today < user.industryInsight.nextUpdate) {
+    return user.industryInsight;
   }
 
-  return user.industryInsight;
+const industryInsight = await db.industryInsight.upsert({
+    where: { industry: user.industry },
+    update: {
+      ...insights,
+      lastUpdated: new Date(),          // ✅ update timestamp
+      nextUpdate: getNextSunday(today), // ✅ auto schedule for Sunday
+    },
+    create: {
+      industry: user.industry,
+      ...insights,
+      lastUpdated: new Date(),
+      nextUpdate: getNextSunday(today),
+    },
+  });
+
+  return industryInsight;
+}
+
+return user.industryInsight;
+
 }
